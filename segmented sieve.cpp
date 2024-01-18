@@ -83,4 +83,206 @@ int main(){
     }
     return 0;
 }
- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex; /* Added */
+}
+
+/* Sidebar styles */
+aside {
+    background-color: #555;
+    color: #fff;
+    width: 250px;
+    min-height: 100vh; /* Updated */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    transition: width 0.3s;
+}
+
+aside.collapsed {
+    width: 80px;
+}
+
+aside button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    padding: 5px;
+}
+
+aside nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin-bottom: 10px;
+}
+
+aside nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+aside nav ul li a:hover {
+    color: #bbb;
+}
+
+/* Main content styles */
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 0 0 calc(50% - 10px);
+}
+
+.card h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+/* Collapsed sidebar styles */
+aside.collapsed nav ul li a {
+    display: none;
+}
+
+aside.collapsed #sidebar-toggle::after {
+    content: '\2261';
+}
+
+aside #sidebar-toggle {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    outline: none;
+    padding: 5px;
+}
+@media (max-width: 768px) {
+    aside {
+        width: 80px;
+    }
+
+    aside.collapsed {
+        width: 80px;
+    }
+
+    aside.collapsed #sidebar-toggle::after {
+        content: '\2261';
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content goes here -->
+    </header>
+    <div>
+    <aside>
+        <aside>
+            <div>
+            <button id="sidebar-toggle">Toggle Sidebar</button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Orders</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+        
+        </aside>
+    </aside>
+    <main>
+        <main>
+            <h1>Admin Dashboard</h1>
+                      <div class="cards">
+                          <div class="flex-container">
+                              <h2>Card 1</h2>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                          <div class="flex-container">
+                              <h2>Card 2</h2>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                          <div class="flex-container">
+                              <h2>Card 3</h2>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                          <div class="flex-container">
+                              <h2>Card 4</h2>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                      </div>
+          </main>
+    </main>
+    </div>
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        function toggleSidebar() {
+    const sidebar = document.querySelector('aside');
+    sidebar.classList.toggle('collapsed');
+}
+    </script>
+    
+</body>
+</html>
