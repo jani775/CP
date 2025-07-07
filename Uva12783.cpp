@@ -273,18 +273,28 @@ vector<i32> bridgeAdj[MAXN];
 //         }
 //     }
 // }
+
+// void dfs2(i32 node,vector<i32> &visited,i32 ccCount){
+//     visited[node] = ccCount;
+//     for(auto &x:bridgeAdj[node]){
+//         if(visited[x]==-1){
+//             dfs2(x,visited,ccCount);
+//         }
+//     }
+// }
 i32 root,dfsCounter = 0,rootChildren=0;
 
-void dfs(i32 node,vector<i32> &in,vector<i32> &low,i32 par){
+void dfs(i32 node,vector<i32> &in,vector<i32> &low,i32 par,vector<pair<i32, i32>> &ans){
     in[node]=dfsCounter++;
     low[node] = in[node];
     for(auto &u:adj[node]){
         if(in[u]==-1){
             if(node==root) rootChildren++;
-            dfs(u,in,low,node);
+            dfs(u,in,low,node,ans);
             if((in[node]<low[u])){
-                bridgeAdj[node].push_back(u);
-                bridgeAdj[u].push_back(node);
+                vector<i32> x  = {node,u};
+                sort(all(x)); 
+                ans.push_back({x[0],x[1]});    
             }
             low[node] = min(low[node],low[u]);
         }else if(u!=par){
@@ -293,19 +303,9 @@ void dfs(i32 node,vector<i32> &in,vector<i32> &low,i32 par){
     }
 }
 
-void dfs2(i32 node,vector<i32> &visited,i32 ccCount){
-    visited[node] = ccCount;
-    for(auto &x:bridgeAdj[node]){
-        if(visited[x]==-1){
-            dfs2(x,visited,ccCount);
-        }
-    }
-}
-
-void solve(i32 n,i32 m,i32 q){
+void solve(i32 n,i32 m){
     //clear
     rep(i,0,MAXN) adj[i].clear();
-    rep(i,0,MAXN) bridgeAdj[i].clear();
     dfsCounter = 1;
     //input
     rep(i,0,m){
@@ -315,36 +315,34 @@ void solve(i32 n,i32 m,i32 q){
     }
     vector<i32> in(n+1,-1),low(n+1,-1);
 
+    vector<pair<i32, i32>> ans;
+
     rep(i,1,n+1){
         if(in[i]==-1){
             root = i;
             rootChildren = 0;
-            dfs(i,in,low,-1);
-        }
+            dfs(i,in,low,-1,ans);
+        }    
     }
-    vector<i32> visited(n+1,-1);
-    i32 ccCount = 1;
-    rep(i,0,q){
-        i32 u,v;see(u,v);
-        if(visited[u]==-1){
-            dfs2(u,visited,ccCount++);
-        }
-        if(visited[u]!=visited[v]) no;
-        else yes;
+
+    sort(all(ans));
+    cout<<ans.size();
+    rep(i,0,ans.size()){
+        cout<<" "<<ans[i].ff<<" "<<ans[i].ss;
     }
-    putln("-");
+    cout<<"\n";
 }
 
 i32 main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
 
-    // #ifndef ONLINE_JUDGE
-	// 	//for getting input from input.txt
-	// 	freopen("input1.txt","r",stdin);
-	// 	//for getting output from output.txt
-	// 	freopen("output1.txt","w",stdout);
-	// #endif
+    #ifndef ONLINE_JUDGE
+		//for getting input from input.txt
+		freopen("input1.txt","r",stdin);
+		//for getting output from output.txt
+		freopen("output1.txt","w",stdout);
+	#endif
 
     i32 t=1;
     // string line;
@@ -352,8 +350,8 @@ i32 main(){
     // while(cin>>n){
     // cin.ignore();
     while(1){
-        i32 n,m,o;see(n,m,o);
-        if((n==0)&&(m==0)&&(o==0)) break;
+        i32 n,m;see(n,m);
+        if((n==0)&&(m==0)) break;
         // putn("Case #");
         // putn(t++);
         // putln(": Dilbert should drink beverages in this order:",solve(n));
@@ -361,7 +359,7 @@ i32 main(){
         // string eline;
         // cin.ignore();
         // getline(cin,eline);
-        solve(n,m,o);
+        solve(n,m);
         // if(t!=0)cout<<"\n";
     }
     // i32 m,n;
